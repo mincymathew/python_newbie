@@ -1,0 +1,67 @@
+import math
+
+def rotationalCipher(input, rotation_factor):
+  # Write your code here
+  list_input = list(input)
+  lower_list = []
+  upper_list = []
+  new_item = []
+  alpha = 'a'
+  
+  for i in range(0, 26): 
+    lower_list.append(ord(alpha))
+    alpha = chr(ord(alpha) + 1)
+  alpha = 'A'
+  for i in range(0,26):
+    upper_list.append(ord(alpha))
+    alpha = chr(ord(alpha) + 1)
+    
+
+  for item in list_input:
+
+    if ord(item) in lower_list:
+      new_item.append(chr((((ord(item) + rotation_factor)-ord('a'))%26) + ord('a')))
+    elif ord(item) in upper_list:
+      new_item.append(chr((((ord(item) + rotation_factor)-ord('A'))%26) + ord('A')))
+    elif item.isdigit():
+      new_item.append(chr((((ord(item) + rotation_factor)-ord('0'))%10) + ord('0')))
+    else:
+      new_item.append(item)
+
+  return "".join(new_item)
+
+
+def printString(string):
+  print('[\"', string, '\"]', sep='', end='')
+
+test_case_number = 1
+
+def check(expected, output):
+  global test_case_number
+  result = False
+  if expected == output:
+    result = True
+  rightTick = '\u2713'
+  wrongTick = '\u2717'
+  if result:
+    print(rightTick, 'Test #', test_case_number, sep='')
+  else:
+    print(wrongTick, 'Test #', test_case_number, ': Expected ', sep='', end='')
+    printString(expected)
+    print(' Your output: ', end='')
+    printString(output)
+    print()
+  test_case_number += 1
+
+if __name__ == "__main__":
+  input_1 = "All-convoYs-9-be:Alert1."
+  rotation_factor_1 = 4
+  expected_1 = "Epp-gsrzsCw-3-fi:Epivx5."
+  output_1 = rotationalCipher(input_1, rotation_factor_1)
+  check(expected_1, output_1)
+
+  input_2 = "abcdZXYzxy-999.@"
+  rotation_factor_2 = 200
+  expected_2 = "stuvRPQrpq-999.@"
+  output_2 = rotationalCipher(input_2, rotation_factor_2)
+  check(expected_2, output_2)
