@@ -6,9 +6,10 @@ import math
 
 
 def are_they_equal(array_a, array_b):
-  # Write your code here
-  for letter in array_a:
-    if letter not in array_b:
+# Write your code here
+  array_a.sort()
+  array_b.sort()
+  if array_a != array_b:
       return False
   return True
 
