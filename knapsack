@@ -1,0 +1,29 @@
+
+def knapsack_recursive(dp, profits, weights, capacity, index):
+    
+    if index >= len(profits):
+        return 0
+    
+    if dp[index][capacity] != -1:
+        return dp[index][capacity]
+    
+    profit1 = 0
+    
+    if capacity - weights[index] >= 0:
+        profit1 = profits[index] + knapsack_recursive(dp, profits, weights , capacity - weights[index], index+1)
+    
+    profit2 = knapsack_recursive(dp, profits, weights , capacity, index+1)
+    
+    dp[index][capacity] = max(profit1, profit2)
+    return dp[index][capacity]
+
+def solve_knapsack(profits, weights, capacity):
+    dp = [[-1 for x in range(capacity+1)] for y in range(len(profits))]
+    return knapsack_recursive(dp, profits, weights, capacity, 0)
+
+def main():
+  print(solve_knapsack([1, 6, 10, 16], [1, 2, 3, 5], 7))
+  print(solve_knapsack([1, 6, 10, 16], [1, 2, 3, 5], 6))
+
+
+main()
