@@ -1,0 +1,13 @@
+def pair_with_targetsum(arr, target_sum):
+  # TODO: Write your code here
+  end_ptr = len(arr)-1
+  start_ptr = 0
+
+  while start_ptr < end_ptr:
+    if arr[start_ptr]+ arr[end_ptr] > target_sum:
+      end_ptr -= 1
+    elif arr[start_ptr] + arr[end_ptr] < target_sum:
+      start_ptr += 1
+    else :
+      return [start_ptr, end_ptr]
+  return [-1, -1]
