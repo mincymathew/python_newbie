@@ -1,0 +1,44 @@
+def binary_search_recurse(arr, start, end, key, isAscending):
+  #print(start,end)
+  if end >= start:
+    if end <= len(arr)-1 and end == start:
+      if arr[start] == key:
+        return start
+      else:
+        return -1
+    middle = start + (end-start)//2
+    #print("Middle is ", middle)
+    if key == arr[middle]:
+      return middle
+    if isAscending:
+      if key < arr[middle]:
+        return binary_search_recurse(arr, start, middle-1, key, isAscending)
+      if key > arr[middle]:
+        return binary_search_recurse(arr, middle+1, end, key, isAscending)
+    else:
+      if key > arr[middle]:
+        return binary_search_recurse(arr, start, middle-1, key, isAscending)
+      if key < arr[middle]:
+        return binary_search_recurse(arr, middle+1, end, key, isAscending)
+
+  return -1
+
+def binary_search(arr, key):
+  # TODO: Write your code here
+  isAscending = True
+  if arr is None:
+      return -1
+  end = len(arr)-1
+  start = 0
+  if arr[end] < arr[start]:
+    isAscending = False
+  return binary_search_recurse(arr, start, end, key, isAscending)
+
+def main():
+  print(binary_search([4, 6, 10], 10))
+  print(binary_search([1, 2, 3, 4, 5, 6, 7], 5))
+  print(binary_search([10, 6, 4], 10))
+  print(binary_search([10, 6, 4], 4))
+
+
+main(
