@@ -1,0 +1,38 @@
+class Solution(object):
+    def findAnagrams(self, s, p):
+        diction = {}
+        phash = {}
+        index_list = []
+        if len(p) > len(s):
+            return index_list
+    
+        for i in range(len(p)):
+            if p[i] not in diction:
+                diction[p[i]] = 1
+            else:
+                diction[p[i]] += 1
+                
+        window = s[0:len(p)]
+        
+        for i in range(len(s)-len(p)+1):
+            window = s[i:i+len(p)]
+            if i == 0:
+                for j in range(len(window)):
+                    if window[j] not in phash:
+                        phash[window[j]] = 1
+                    else:
+                        phash[window[j]] +=1
+            else:
+                if s[i+len(p)-1] in phash:
+                    phash[s[i+len(p)-1]] +=1
+                else:
+                    phash[s[i+len(p)-1]] = 1
+        
+            if phash == diction:
+                index_list.append(i)
+            if phash[s[i]] <= 1:
+                phash.pop(s[i])
+            else:
+                phash[s[i]] -= 1
+  
+        return index_list
