@@ -1,0 +1,51 @@
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        if grid == None:
+            return 0
+        num_islands = 0
+        num_rows = len(grid)
+        if num_rows == 0:
+            return num_islands
+        num_col = len(grid[0])
+        v_grid = [[0 for j in range (num_col)] for i in range(num_rows)]
+        
+        def check_neighbors(i, j, grid, v_grid):
+            "Check to left"
+            if j != 0: 
+                if v_grid [i][j-1] != 1:
+                    v_grid[i][j-1] = 1
+                    if grid[i][j-1] == "1":
+                        check_neighbors(i, j-1, grid, v_grid)
+            "Check to right"
+            if j+1 < len(grid[0]):
+                if v_grid[i][j+1] !=1:
+                    v_grid[i][j+1] = 1
+                    if grid[i][j+1] == "1":
+                        check_neighbors(i, j+1, grid, v_grid)
+            "Check above"
+            if i != 0:
+                if v_grid[i-1][j] != 1:
+                    v_grid[i-1][j] = 1
+                    if grid[i-1][j] == "1":
+                        check_neighbors(i-1, j, grid, v_grid)
+            "Check below"
+            if i+1 < len(grid):
+                if v_grid[i+1][j] !=1:
+                    v_grid[i+1][j] = 1
+                    if grid[i+1][j] == "1":
+                        check_neighbors(i+1, j, grid, v_grid)  
+
+            
+        for i in range(num_rows):
+            for j in range(num_col):
+                if v_grid[i][j] != 1:
+                    "mark as visited"
+                    v_grid[i][j] = 1
+                    if grid[i][j] == "1":
+                        check_neighbors(i,j, grid, v_grid)
+                        num_islands += 1
+        return num_islands
