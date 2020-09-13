@@ -1,0 +1,15 @@
+class Solution:
+    def hasCycle(self, head: ListNode) -> bool:
+        if head is None:
+            return False
+        
+        ptr_list = []
+        iter_list = head
+        
+        while iter_list is not None:
+            if id(iter_list) not in ptr_list:
+                ptr_list.append(id(iter_list))
+            else:
+                return True
+            iter_list = iter_list.next
+        return False
